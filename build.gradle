@@ -1,0 +1,52 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.0'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+}
+
+group = 'rikkei'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'mysql:mysql-connector-java'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.0.10.Final'
+    // Security
+    implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.4.2'
+
+    implementation group: 'org.springframework.security', name: 'spring-security-config', version: '5.4.2'
+
+    implementation group: 'org.springframework.security', name: 'spring-security-taglibs', version: '5.4.2'
+
+    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+    implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.4.3'
+
+    //JWT
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
+    //Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.10'
+    testCompileOnly         'org.projectlombok:lombok:1.18.10'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
