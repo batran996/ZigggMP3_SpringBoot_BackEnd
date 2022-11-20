@@ -131,7 +131,7 @@ public class AuthController {
         User user = uSerService.findByUsername(username).get();
         user.setAvatar(changeAvatar.getAvatar());
         uSerService.save(user);
-        return new ResponseEntity<>(new ResponseMessage("channger avatar success!"),HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("changer avatar success!"),HttpStatus.OK);
     }
 
 }
