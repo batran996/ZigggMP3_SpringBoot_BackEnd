@@ -111,7 +111,7 @@ public class AuthController {
 
         UserPrinciple userPrinciple = (UserPrinciple) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String checkPass = userPrinciple.getPassword();
-//
+
         if (!passwordEncoder.matches(changerPassDTO.getPassword(), checkPass)) {
             return new ResponseEntity<>(new ResponseMessage("Mật khẩu không đúng,vui lòng nhập lại !"),HttpStatus.NOT_FOUND);
         }

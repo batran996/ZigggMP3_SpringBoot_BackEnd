@@ -6,18 +6,22 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import rikkei.academy.dto.request.SongDTO;
 import rikkei.academy.dto.response.ResponseMessage;
 
 //import rikkei.academy.dto.response.SongResponse;
+import rikkei.academy.model.User;
 import rikkei.academy.model.song.Category;
 import rikkei.academy.model.song.Singer;
 import rikkei.academy.model.song.Song;
 import rikkei.academy.security.userprincipal.UserDetailServiceIMPL;
+import rikkei.academy.security.userprincipal.UserPrinciple;
 import rikkei.academy.service.category.ICategoryService;
 import rikkei.academy.service.singer.ISingerService;
 import rikkei.academy.service.song.ISongService;
+import rikkei.academy.service.user.IUSerService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +40,8 @@ public class SongController {
     private ISingerService singerService;
     @Autowired
     private UserDetailServiceIMPL userDetailServiceIMPL;
+    @Autowired
+    private IUSerService uSerService;
 
     @GetMapping
     public ResponseEntity<?> findAllSong(@PageableDefault(size = (9)) Pageable pageable) {
@@ -45,6 +51,10 @@ public class SongController {
 
     @PostMapping
     public ResponseEntity<?> createSong(@RequestBody Song song) {
+//        UserPrinciple userPrinciple = (UserPrinciple) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = uSerService.findByUsername(userPrinciple.getUsername()).get();
+        User user = userDetailServiceIMPL.getCurrentUser();
+        song.setUser(user);
         songService.save(song);
         return new ResponseEntity<>(new ResponseMessage("Create song success!"), HttpStatus.OK);
     }

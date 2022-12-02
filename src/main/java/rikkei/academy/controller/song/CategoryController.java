@@ -39,9 +39,7 @@ public class CategoryController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> findById(
-            @PathVariable("id") Category category
-    ) {
+    public ResponseEntity<?> findById(@PathVariable("id") Category category) {
         return category == null ? new ResponseEntity<>(NOT_FOUND) : ResponseEntity.ok(category);
     }
 
@@ -56,7 +54,7 @@ public class CategoryController {
         }
         category.setId(id);
         categoryService.save(category);
-        return new ResponseEntity<>(new ResponseMessage("Update success"), OK);
+        return new ResponseEntity<>(new ResponseMessage("Update_success"), OK);
     }
 
     @DeleteMapping("{id}")
